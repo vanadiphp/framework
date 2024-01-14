@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('currencies', function (Blueprint $table) {
+            $table->id();
+            $table->teamCodeColumn(true, true);
+            $table->string('name',64);
+            $table->string('symbol',64)->nullable();
+            $table->string('exchange_base_currency',3)->nullable();
+            $table->decimal('exchange_rate',21,8)->default(1.0);
+            $table->timestamp('last_forex_update')->nullable();
+            $table->statusColumns();
+            $table->auditColumns();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('currencies');
+    }
+};
