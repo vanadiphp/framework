@@ -12,6 +12,7 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
+use Vanadi\Framework\Commands\CurrencyExchangeCommand;
 use Vanadi\Framework\Concerns\Model\HasState;
 use Vanadi\Framework\Livewire\SwitchTeam;
 use Vanadi\Framework\Providers\VanadiServiceProvider;
@@ -127,6 +128,7 @@ class FrameworkServiceProvider extends PackageServiceProvider
     {
         return [
             FrameworkCommand::class,
+            CurrencyExchangeCommand::class,
         ];
     }
 

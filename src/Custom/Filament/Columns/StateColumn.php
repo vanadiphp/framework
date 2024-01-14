@@ -4,11 +4,11 @@ namespace Vanadi\Framework\Custom\Filament\Columns;
 
 use Filament\Tables\Columns\TextColumn;
 
-class DocStatusColumn
+class StateColumn
 {
     public static function make()
     {
-        return TextColumn::make('doc_status')->badge()
+        return TextColumn::make('state')->badge()
             ->formatStateUsing(fn ($state) => match ($state) {
                 0 => 'Draft',
                 1 => 'Submitted',

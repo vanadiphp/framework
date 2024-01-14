@@ -2,7 +2,9 @@
 namespace Vanadi\Framework;
 
 use App\Model\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Vanadi\Framework\Helpers\Currencies;
 use Vanadi\Framework\Helpers\Framework;
 use Vanadi\Framework\Models\Team;
 use Vanadi\Framework\Helpers\Access;
@@ -34,8 +36,12 @@ if (!function_exists('Vanadi\Framework\vanadi')) {
         return app(\Vanadi\Framework\Framework::class);
     }
 }
-
-
+if (!function_exists('Vanadi\Framework\currencies')) {
+    function currencies(): Currencies
+    {
+        return app(Currencies::class);
+    }
+}
 
 if (!function_exists('Vanadi\Framework\default_team')) {
     function default_team(): Team
@@ -53,7 +59,7 @@ if (!function_exists('Vanadi\Framework\currency')) {
 }
 
 if (!function_exists('Vanadi\Framework\system_user')) {
-    function system_user(): \App\Models\User|\Illuminate\Contracts\Auth\Authenticatable
+    function system_user(): \App\Models\User|Authenticatable
     {
         return Access::system_user();
     }

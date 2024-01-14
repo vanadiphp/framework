@@ -15,16 +15,4 @@ class CurrencyPolicy
     {
         return CurrencyResource::class;
     }
-    public function update(User $user, Model $model): bool
-    {
-        return false;
-    }
-    public function delete(User $user, Model $model)
-    {
-        return false;
-    }
-    public function deleteAny(User $user): bool
-    {
-        return false;
-    }
 }

@@ -9,6 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
+use Vanadi\Framework\Custom\Filament\Columns\StateColumn;
 use Vanadi\Framework\Custom\Filament\Fields\AuditFieldset;
 use Vanadi\Framework\Custom\Filament\Layouts\Sidebar;
 use Vanadi\Framework\Models\Currency;
@@ -64,10 +65,10 @@ class CurrencyResource extends Resource
                     ->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('symbol')
                     ->searchable()->searchable(),
-                Tables\Columns\TextColumn::make('country.name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('exchange_rate')
                     ->formatStateUsing(fn($state, $record) => "1 {$record->exchange_base_currency} = ".number_format(floatval($state), 8)." $record->code"),
                 ActiveStatusColumn::make(),
+                StateColumn::make(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

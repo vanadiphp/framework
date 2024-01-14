@@ -16,5 +16,9 @@ return [
         Country::class,
         \Vanadi\Framework\Models\Currency::class,
         Team::class,
+    ],
+    'currency' => [
+        'exchange_rate_endpoint' => env('EXCHANGE_RATES_ENDPOINT'),
+        'exchange_rates_api_key' => env('EXCHANGE_RATES_API_KEY'),
     ]
 ];
