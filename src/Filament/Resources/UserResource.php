@@ -15,11 +15,9 @@ use Vanadi\Framework\AccessPlugin;
 use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
 use Vanadi\Framework\Custom\Filament\Fields\AuditFieldset;
 use Vanadi\Framework\Custom\Filament\Layouts\Sidebar;
-use Vanadi\Framework\Filament\Resources\UserResource\Pages;
 
 class UserResource extends Resource
 {
-
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-users';
@@ -128,7 +126,7 @@ class UserResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
-                ])
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

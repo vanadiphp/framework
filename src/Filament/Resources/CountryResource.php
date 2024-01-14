@@ -2,7 +2,6 @@
 
 namespace Vanadi\Framework\Filament\Resources;
 
-use App\Filament\Resources\CountryResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,8 +11,8 @@ use Illuminate\Support\HtmlString;
 use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
 use Vanadi\Framework\Custom\Filament\Fields\AuditFieldset;
 use Vanadi\Framework\Custom\Filament\Layouts\Sidebar;
-use Vanadi\Framework\Models\Country;
 use Vanadi\Framework\FrameworkPlugin;
+use Vanadi\Framework\Models\Country;
 
 class CountryResource extends Resource
 {
@@ -25,10 +24,12 @@ class CountryResource extends Resource
     {
         return FrameworkPlugin::getNavigationGroupLabel();
     }
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
+
     public static function form(Form $form): Form
     {
         return Sidebar::make($form)
@@ -54,13 +55,13 @@ class CountryResource extends Resource
                         ->maxLength(255),
                     Forms\Components\Toggle::make('is_active')
                         ->required(),
-                ])->columns()
-            ],[
+                ])->columns(),
+            ], [
                 Forms\Components\Placeholder::make('flag_url')
-                    ->label("Flag")
+                    ->label('Flag')
                     ->columnSpanFull()
-                    ->content(fn($state, $record) => new HtmlString("<img src='{$record->flag_url}' alt='{$record->code}'>")),
-                AuditFieldset::make()->columns(1)
+                    ->content(fn ($state, $record) => new HtmlString("<img src='{$record->flag_url}' alt='{$record->code}'>")),
+                AuditFieldset::make()->columns(1),
             ]);
     }
 
@@ -69,7 +70,7 @@ class CountryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('flag_url')
-                    ->extraImgAttributes(['width' => '80','height' => '80'])
+                    ->extraImgAttributes(['width' => '80', 'height' => '80'])
                     ->label('Flag'),
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),

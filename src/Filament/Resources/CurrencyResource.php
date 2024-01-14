@@ -2,7 +2,6 @@
 
 namespace Vanadi\Framework\Filament\Resources;
 
-use App\Filament\Resources\CurrencyResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,10 +11,8 @@ use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
 use Vanadi\Framework\Custom\Filament\Columns\StateColumn;
 use Vanadi\Framework\Custom\Filament\Fields\AuditFieldset;
 use Vanadi\Framework\Custom\Filament\Layouts\Sidebar;
-use Vanadi\Framework\Models\Currency;
 use Vanadi\Framework\FrameworkPlugin;
-use function Filament\Support\format_money;
-use function Filament\Support\format_number;
+use Vanadi\Framework\Models\Currency;
 
 class CurrencyResource extends Resource
 {
@@ -27,6 +24,7 @@ class CurrencyResource extends Resource
     {
         return FrameworkPlugin::getNavigationGroupLabel();
     }
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
@@ -47,9 +45,9 @@ class CurrencyResource extends Resource
                         ->maxLength(255),
                     Forms\Components\Toggle::make('is_active')
                         ->required()->default(true),
-                ])
-            ],[
-                AuditFieldset::make()
+                ]),
+            ], [
+                AuditFieldset::make(),
             ]);
     }
 
@@ -66,7 +64,7 @@ class CurrencyResource extends Resource
                 Tables\Columns\TextColumn::make('symbol')
                     ->searchable()->searchable(),
                 Tables\Columns\TextColumn::make('exchange_rate')
-                    ->formatStateUsing(fn($state, $record) => "1 {$record->exchange_base_currency} = ".number_format(floatval($state), 8)." $record->code"),
+                    ->formatStateUsing(fn ($state, $record) => "1 {$record->exchange_base_currency} = " . number_format(floatval($state), 8) . " $record->code"),
                 ActiveStatusColumn::make(),
                 StateColumn::make(),
                 Tables\Columns\TextColumn::make('created_at')

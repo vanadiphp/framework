@@ -11,7 +11,7 @@ trait HasExportActions
     /**
      * @return Column[]
      */
-    public abstract static function getExportColumns(): array;
+    abstract public static function getExportColumns(): array;
 
     public function getPageTableExportAction(): ExportAction
     {
@@ -20,6 +20,7 @@ trait HasExportActions
             ->visible(static::getModel()::count() > 0)
             ->badgeColor('success')->requiresConfirmation();
     }
+
     public function getPageFormExportAction(): ExportAction
     {
         return VanadiExport::formExport(static::getExportColumns())
@@ -27,6 +28,7 @@ trait HasExportActions
             ->visible(static::getModel()::count() > 0)
             ->badgeColor('success')->requiresConfirmation();
     }
+
     public function getBulkExportAction(): ExportAction
     {
         return VanadiExport::bulkExport(static::getExportColumns())

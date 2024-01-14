@@ -2,7 +2,6 @@
 
 namespace Vanadi\Framework\Filament\Pages;
 
-use Vanadi\Framework\Models\Team;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
@@ -10,12 +9,16 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\RegisterTenant;
 use Illuminate\Auth\Access\AuthorizationException;
+use Vanadi\Framework\Models\Team;
+
 use function Filament\authorize;
 
 class RegisterTeam extends RegisterTenant
 {
     protected static string $view = 'filament-panels::pages.tenancy.register-tenant';
+
     protected static ?string $slug = 'select-team';
+
     public static function getLabel(): string
     {
         return trans('vanadi-framework::framework.tenancy.select_team');
@@ -30,13 +33,14 @@ class RegisterTeam extends RegisterTenant
         } else {
             $teams = auth()->user()->teams()->whereIsActive(true)->pluck('name', 'code');
         }
+
         return $form
             ->schema([
                 TextInput::make('new_team')
                     ->label('Create a New team')
                     ->placeholder('Enter the Team Name')
                     ->readOnly(authorize('create', Filament::getTenantModel())->denied())
-                    ->visible(!count($teams) && $isAllowed),
+                    ->visible(! count($teams) && $isAllowed),
                 Select::make('team_code')
                     ->options($teams)->visible(count($teams)),
                 // ...
@@ -54,9 +58,10 @@ class RegisterTeam extends RegisterTenant
                 'name' => $name,
             ]);
             $team->members()->attach(auth()->user());
+
             return $team;
         }
-        abort(500,'Team could not be found');
+        abort(500, 'Team could not be found');
     }
 
     public static function canView(): bool

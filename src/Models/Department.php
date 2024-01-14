@@ -2,9 +2,7 @@
 
 namespace Vanadi\Framework\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kalnoy\Nestedset\NodeTrait;
 use Vanadi\Framework\Concerns\Model\HasAuditColumns;
@@ -26,8 +24,9 @@ class Department extends Model
     {
         return false;
     }
+
     public function users(): HasMany
     {
-        return $this->hasMany("App\Models\User",'department_short_name','short_name');
+        return $this->hasMany("App\Models\User", 'department_short_name', 'short_name');
     }
 }

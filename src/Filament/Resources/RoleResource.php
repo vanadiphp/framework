@@ -10,6 +10,7 @@ class RoleResource extends \BezhanSalleh\FilamentShield\Resources\RoleResource
     {
         return AccessPlugin::getNavGroupLabel();
     }
+
     public static function shouldRegisterNavigation(): bool
     {
         return true;

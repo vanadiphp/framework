@@ -2,15 +2,15 @@
 
 namespace Vanadi\Framework\Seeders\Framework;
 
-use Vanadi\Framework\Models\Team;
 use Illuminate\Database\Seeder;
+use Vanadi\Framework\Models\Team;
 
 class TeamTableSeeder extends Seeder
 {
     public function run(): void
     {
-        $team = Team::firstOrCreate(['code' =>'DEFAULT'],[
-            'name' => 'DEFAULT TEAM'
+        $team = Team::firstOrCreate(['code' => 'DEFAULT'], [
+            'name' => 'DEFAULT TEAM',
         ]);
         $team->submit();
     }

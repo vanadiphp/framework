@@ -3,25 +3,22 @@
 namespace Vanadi\Framework;
 
 use Filament\Facades\Filament;
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vanadi\Framework\Commands\CurrencyExchangeCommand;
+use Vanadi\Framework\Commands\FrameworkCommand;
 use Vanadi\Framework\Concerns\Model\HasState;
 use Vanadi\Framework\Livewire\SwitchTeam;
 use Vanadi\Framework\Providers\VanadiServiceProvider;
 use Vanadi\Framework\Seeders\AccessDatabaseSeeder;
 use Vanadi\Framework\Seeders\FrameworkSeeder;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vanadi\Framework\Commands\FrameworkCommand;
 use Vanadi\Framework\Testing\TestsFramework;
 
 class FrameworkServiceProvider extends PackageServiceProvider
@@ -47,7 +44,7 @@ class FrameworkServiceProvider extends PackageServiceProvider
                     ->publishMigrations()
                     ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('vanadiphp/framework')
-                    ->endWith(fn(InstallCommand $command) => $this->extendInstallation($command));
+                    ->endWith(fn (InstallCommand $command) => $this->extendInstallation($command));
             });
 
         $package->hasConfigFile([
@@ -146,7 +143,7 @@ class FrameworkServiceProvider extends PackageServiceProvider
     protected function getRoutes(): array
     {
         return [
-            'web'
+            'web',
         ];
     }
 
@@ -195,7 +192,6 @@ class FrameworkServiceProvider extends PackageServiceProvider
         // Override Filament Shield config
         \Config::set('filament-shield', \Config::get('vanadi-shield'));
 
-
         // Override LDAP settings
         \Config::set('ldap', \Config::get('vanadi-ldap'));
     }
@@ -203,7 +199,7 @@ class FrameworkServiceProvider extends PackageServiceProvider
     private function extendInstallation(InstallCommand $command): void
     {
         // Check if there is a current filament panel. If not, instlal Filament with --panels
-        if (!Filament::getCurrentPanel()) {
+        if (! Filament::getCurrentPanel()) {
             // Installing Filament with Panels
             $command->info('Installing Filament with Panels');
             $command->call('filament:install', ['--panels' => true]);
@@ -221,7 +217,8 @@ class FrameworkServiceProvider extends PackageServiceProvider
         // open app/Models/User.php in edit mode and add a trait to it
         $userModelFile = app_path('Models/User.php');
         $trait = 'use \Vanadi\Framework\Concerns\Model\HasState;';
-        framework()->append_after_line($userModelFile,
+        framework()->append_after_line(
+            $userModelFile,
             'use Illuminate\Foundation\Auth\User as Authenticatable;',
             "$trait",
             skip_if_exists: true
@@ -240,7 +237,8 @@ class FrameworkServiceProvider extends PackageServiceProvider
         $command->info('Adding HasRoles trait to User model');
 
         $trait = 'use Spatie\Permission\Traits\HasRoles;';
-        framework()->append_after_line($userModelFile,
+        framework()->append_after_line(
+            $userModelFile,
             'use Illuminate\Foundation\Auth\User as Authenticatable;',
             $trait,
             skip_if_exists: true
@@ -255,7 +253,8 @@ class FrameworkServiceProvider extends PackageServiceProvider
         );
 
         $trait = 'use Vanadi\Framework\Concerns\Model\HasTeam;';
-        framework()->append_after_line($userModelFile,
+        framework()->append_after_line(
+            $userModelFile,
             'use Illuminate\Foundation\Auth\User as Authenticatable;',
             $trait,
             skip_if_exists: true
@@ -269,9 +268,9 @@ class FrameworkServiceProvider extends PackageServiceProvider
             skip_if_exists: true
         );
 
-
         $trait = 'use Vanadi\Framework\Concerns\Model\HasAuditColumns;';
-        framework()->append_after_line($userModelFile,
+        framework()->append_after_line(
+            $userModelFile,
             'use Illuminate\Foundation\Auth\User as Authenticatable;',
             $trait,
             skip_if_exists: true
@@ -286,7 +285,8 @@ class FrameworkServiceProvider extends PackageServiceProvider
         );
 
         $trait = 'use Vanadi\Framework\Concerns\Model\HasCode;';
-        framework()->append_after_line($userModelFile,
+        framework()->append_after_line(
+            $userModelFile,
             'use Illuminate\Foundation\Auth\User as Authenticatable;',
             $trait,
             skip_if_exists: true
@@ -299,11 +299,6 @@ class FrameworkServiceProvider extends PackageServiceProvider
             "    $line",
             skip_if_exists: true
         );
-
-
-
-
-
 
         if ($command->confirm('Seed Initial Setup Data? (recommended)', true)) {
             $command->call('db:seed', ['--class' => AccessDatabaseSeeder::class]);

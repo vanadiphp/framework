@@ -15,8 +15,8 @@ class DocumentCancellation extends Model
     use HasAuditColumns;
     use HasCode;
     use HasState;
-    use HasUuids;
     use HasTeam;
+    use HasUuids;
 
     protected $guarded = ['id'];
 

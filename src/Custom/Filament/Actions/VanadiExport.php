@@ -10,40 +10,48 @@ use pxlrbt\FilamentExcel\Exports\ExcelExport;
 class VanadiExport
 {
     /**
-     * @param Column[]|null $columns
-     * @return ExportAction
+     * @param  Column[]|null  $columns
      */
     public static function tableExport(?array $columns = []): ExportAction
     {
         $export = ExcelExport::make('table')->fromTable();
-        if ($columns && count($columns)) $export->withColumns($columns);
+        if ($columns && count($columns)) {
+            $export->withColumns($columns);
+        }
+
         return ExportAction::make('export')->label('Export')->exports([
             $export,
         ]);
     }
 
     /**
-     * @param Column[]|null $columns
-     * @return ExportAction
+     * @param  Column[]|null  $columns
      */
     public static function formExport(?array $columns = []): ExportAction
     {
         $export = ExcelExport::make('form')->fromForm();
-        if ($columns && count($columns)) $export->withColumns($columns);
+        if ($columns && count($columns)) {
+            $export->withColumns($columns);
+        }
+
         return ExportAction::make('export')->label('Export')->exports([
             $export,
         ]);
     }
-    public static function bulkExport(?array $columns = []) {
+
+    public static function bulkExport(?array $columns = [])
+    {
         /**
-         * @param Column[]|null $columns
+         * @param  Column[]|null  $columns
          * @return ExportBulkAction
          */
         $export = ExcelExport::make('table')->fromTable();
-        if ($columns && count($columns)) $export->withColumns($columns);
+        if ($columns && count($columns)) {
+            $export->withColumns($columns);
+        }
+
         return ExportBulkAction::make('export-bulk-records')->exports([
-            $export
+            $export,
         ])->label('Export Selected');
     }
-
 }

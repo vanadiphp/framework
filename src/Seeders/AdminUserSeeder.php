@@ -6,6 +6,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Database\Seeder;
 use Throwable;
+
 use function Vanadi\Framework\default_team;
 
 class AdminUserSeeder extends Seeder
@@ -30,7 +31,7 @@ class AdminUserSeeder extends Seeder
         ]);
         $user->submit();
         // If schema does not have a table called roles, run shield:install --fresh
-        if (!\Schema::hasTable('roles')) {
+        if (! \Schema::hasTable('roles')) {
             $res = \Artisan::call('shield:install', ['--fresh' => true, '--no-interaction' => true]);
             abort_unless($res === 0, 500, 'shield:install failed. Check logs for details');
         }

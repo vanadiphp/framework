@@ -58,7 +58,7 @@ class FrameworkColumns
         $table->foreignId('team_id')->constrained()->restrictOnDelete();
     }
 
-    public static function teamCodeColumn(Blueprint $table, bool $createCodeColumn=false, bool $createTeamColumn = false): void
+    public static function teamCodeColumn(Blueprint $table, bool $createCodeColumn = false, bool $createTeamColumn = false): void
     {
 
         if ($createTeamColumn) {

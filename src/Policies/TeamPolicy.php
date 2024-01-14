@@ -1,16 +1,17 @@
 <?php
 
 namespace Vanadi\Framework\Policies;
-use App\Models\User;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Vanadi\Framework\Concerns\Policy\StandardPolicy;
 use Vanadi\Framework\Filament\Resources\TeamResource;
 
 class TeamPolicy
 {
-    use HandlesAuthorization, StandardPolicy;
+    use HandlesAuthorization;
+    use StandardPolicy;
 
-    function getResourceClass(): string
+    public function getResourceClass(): string
     {
         return TeamResource::class;
     }

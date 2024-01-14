@@ -3,7 +3,6 @@
 namespace Vanadi\Framework\Livewire;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -14,8 +13,9 @@ use Vanadi\Framework\Models\User;
 
 class SwitchTeam extends Component implements HasForms
 {
-    use InteractsWithForms;
     use InteractsWithFormActions;
+    use InteractsWithForms;
+
     public ?array $data = [];
 
     public function mount(): void
@@ -29,7 +29,7 @@ class SwitchTeam extends Component implements HasForms
             ->schema([
                 Select::make('team_id')
                     ->label('Select Team/Company')
-                    ->options(fn() => filament()->auth()->user()->teams()->pluck('name','id'))
+                    ->options(fn () => filament()->auth()->user()->teams()->pluck('name', 'id'))
                     ->searchable()
                     ->default(filament()->auth()->user()->team?->id)
                     ->required(),

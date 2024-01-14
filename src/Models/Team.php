@@ -2,7 +2,6 @@
 
 namespace Vanadi\Framework\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Kalnoy\Nestedset\NodeTrait;
@@ -28,8 +27,9 @@ class Team extends Model
     {
         return false;
     }
+
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'team_user');
+        return $this->belongsToMany(User::class, 'team_user');
     }
 }

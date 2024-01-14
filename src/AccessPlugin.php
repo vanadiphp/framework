@@ -13,7 +13,9 @@ use Vanadi\Framework\Http\Middleware\RedirectIfInertiaMiddleware;
 class AccessPlugin implements Plugin
 {
     private bool $useLdap = false;
+
     private bool $registerResources = true;
+
     public function getId(): string
     {
         return 'vanadi-access';
@@ -34,7 +36,7 @@ class AccessPlugin implements Plugin
             ->navigationGroups([
                 NavigationGroup::make(static::getNavGroupLabel())->collapsible()->collapsed(),
             ])->plugin(FilamentShieldPlugin::make()
-                ->resourceCheckboxListColumns(['sm' => 2,'lg' => 3,'xl' => 6]));
+            ->resourceCheckboxListColumns(['sm' => 2, 'lg' => 3, 'xl' => 6]));
         if ($this->isRegisterResources()) {
             $panel->resources([
                 UserResource::class,
@@ -81,6 +83,7 @@ class AccessPlugin implements Plugin
     public function registerResources(bool $registerResources = true): AccessPlugin
     {
         $this->registerResources = $registerResources;
+
         return $this;
     }
 

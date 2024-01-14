@@ -7,9 +7,7 @@ use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
-use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,26 +17,26 @@ use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Vanadi\Framework\Concerns\Model\HasAuditColumns;
 use Vanadi\Framework\Concerns\Model\HasCode;
 use Vanadi\Framework\Concerns\Model\HasState;
 use Vanadi\Framework\Concerns\Model\HasTeam;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasAvatar,FilamentUser, HasMedia, LdapAuthenticatable
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasMedia, LdapAuthenticatable
 {
     use AuthenticatesWithLdap;
     use HasApiTokens;
-    use HasRoles;
-    use HasPanelShield;
     use HasAuditColumns;
     use HasCode;
+    use HasPanelShield;
+    use HasRoles;
+    use HasState;
     use HasTeam;
     use InteractsWithMedia;
     use Notifiable;
-    use HasState;
 
     /**
      * The attributes that are mass assignable.
@@ -66,7 +64,6 @@ class User extends Authenticatable implements HasAvatar,FilamentUser, HasMedia, 
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
 
     public function shouldOmitPrefix(): bool
     {
@@ -115,7 +112,7 @@ class User extends Authenticatable implements HasAvatar,FilamentUser, HasMedia, 
 
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(Team::class,'team_user');
+        return $this->belongsToMany(Team::class, 'team_user');
     }
 
     public function canAccessPanel(Panel $panel): bool
@@ -128,13 +125,13 @@ class User extends Authenticatable implements HasAvatar,FilamentUser, HasMedia, 
         return $this->teams->contains($tenant) || $this->hasRole(Utils::getSuperAdminName());
     }
 
-    public function getTenants(Panel $panel): array|Collection
+    public function getTenants(Panel $panel): array | Collection
     {
         return $this->teams;
     }
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class,'department_short_name','short_name');
+        return $this->belongsTo(Department::class, 'department_short_name', 'short_name');
     }
 }

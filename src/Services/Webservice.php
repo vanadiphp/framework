@@ -29,8 +29,7 @@ class Webservice
 
     /**
      * @deprecated Use fetchStaffByUsername instead.
-     * @param string $username
-     * @return Collection
+     *
      * @throws RequestException
      */
     public function fetchStaff(string $username): Collection

@@ -2,24 +2,24 @@
 
 namespace Vanadi\Framework;
 
-use Vanadi\Framework\Filament\Resources\DepartmentResource;
-use Vanadi\Framework\Models\Team;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
-use Illuminate\Support\Facades\Blade;
 use Vanadi\Framework\Filament\Pages\ManageWebserviceSettings;
 use Vanadi\Framework\Filament\Resources\CountryResource;
 use Vanadi\Framework\Filament\Resources\CurrencyResource;
 use Vanadi\Framework\Filament\Resources\TeamResource;
 use Vanadi\Framework\Helpers\Framework;
 use Vanadi\Framework\Http\Middleware\RedirectIfInertiaMiddleware;
+use Vanadi\Framework\Models\Team;
 
 class FrameworkPlugin implements Plugin
 {
     private bool $registerResources = true;
+
     private bool $registerPages = true;
+
     public function getId(): string
     {
         return 'vanadi-framework';
@@ -40,10 +40,9 @@ class FrameworkPlugin implements Plugin
             ->middleware([
                 RedirectIfInertiaMiddleware::class,
             ])
-            ->discoverPages(in: __DIR__ . '/../Filament/Pages', for: 'Vanadi\\Framework\\Filament\\Pages')
-//            ->tenant(Team::class)
-//            ->tenantRegistration(RegisterTeam::class)
-        ;
+            ->discoverPages(in: __DIR__ . '/../Filament/Pages', for: 'Vanadi\\Framework\\Filament\\Pages');
+        //            ->tenant(Team::class)
+        //            ->tenantRegistration(RegisterTeam::class)
 
         if ($this->shouldRegisterPages()) {
             $panel->pages([
@@ -54,7 +53,7 @@ class FrameworkPlugin implements Plugin
             $panel->resources([
                 TeamResource::class,
                 CurrencyResource::class,
-                CountryResource::class
+                CountryResource::class,
             ]);
         }
     }
@@ -63,7 +62,7 @@ class FrameworkPlugin implements Plugin
     {
         FilamentView::registerRenderHook(
             'panels::user-menu.before',
-            fn() => view('vanadi-framework::team-switcher')
+            fn () => view('vanadi-framework::team-switcher')
         );
     }
 
@@ -83,6 +82,7 @@ class FrameworkPlugin implements Plugin
     public function registerResources(bool $registerResources = true): FrameworkPlugin
     {
         $this->registerResources = $registerResources;
+
         return $this;
     }
 
@@ -94,6 +94,7 @@ class FrameworkPlugin implements Plugin
     public function registerPages(bool $registerPages = true): FrameworkPlugin
     {
         $this->registerPages = $registerPages;
+
         return $this;
     }
 

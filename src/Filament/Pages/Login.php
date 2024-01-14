@@ -19,6 +19,7 @@ use Vanadi\Framework\Services\Users;
 class Login extends BaseLogin
 {
     use ListensForLdapBindFailure;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'vanadi-framework::pages.auth.login';
@@ -128,6 +129,7 @@ class Login extends BaseLogin
             ]*/
         ];
     }
+
     protected function throwLoginValidationException(string $message): void
     {
         throw ValidationException::withMessages([

@@ -2,25 +2,27 @@
 
 namespace Vanadi\Framework\Filament\Resources;
 
-use Vanadi\Framework\Models\Department;
-use Vanadi\Framework\FrameworkPlugin;
-use Vanadi\Framework\Filament\Resources\DepartmentResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
+use Vanadi\Framework\Filament\Resources\DepartmentResource\Pages;
+use Vanadi\Framework\FrameworkPlugin;
+use Vanadi\Framework\Models\Department;
 
 class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
+
     public static function getNavigationGroup(): ?string
     {
         return FrameworkPlugin::getNavigationGroupLabel();
@@ -57,7 +59,6 @@ class DepartmentResource extends Resource
                 Forms\Components\TextInput::make('revenue_account_number')
                     ->required()
                     ->maxLength(255),
-
 
                 Forms\Components\TextInput::make('sync_id')
                     ->required()

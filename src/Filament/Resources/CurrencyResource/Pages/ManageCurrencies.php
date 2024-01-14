@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ManageRecords;
 use Vanadi\Framework\Filament\Resources\CurrencyResource;
 use Vanadi\Framework\Models\Currency;
+
 use function Vanadi\Framework\currencies;
 
 class ManageCurrencies extends ManageRecords
@@ -20,13 +21,14 @@ class ManageCurrencies extends ManageRecords
                 ->requiresConfirmation()
                 ->form([
                     Select::make('base_currency')->label('Set the Base Currency')
-                        ->options(Currency::get()
-                            ->map(fn($currency) => ['code' => $currency->code,'label' => "$currency->code - $currency->name"])->pluck('label','code')
+                        ->options(
+                            Currency::get()
+                                ->map(fn ($currency) => ['code' => $currency->code, 'label' => "$currency->code - $currency->name"])->pluck('label', 'code')
                         )
                         ->default('KES')
-                        ->searchable()
+                        ->searchable(),
                 ])
-                ->action(fn(array $data) => currencies()->updateExchangeRates($data['base_currency']))
+                ->action(fn (array $data) => currencies()->updateExchangeRates($data['base_currency']))
                 ->color('success')->icon('heroicon-o-arrow-path'),
             Actions\CreateAction::make(),
         ];

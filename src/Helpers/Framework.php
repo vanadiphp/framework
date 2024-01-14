@@ -11,22 +11,24 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use LaravelReady\ReadableNumbers\Facades\ReadableNumbers;
 use ReflectionClass;
-use Vanadi\Framework\AccessPlugin;
 use Vanadi\Framework\Themes\StrathmoreTheme;
 
 class Framework
 {
-    public static function url(string $path, ?array $parameters = []): \Illuminate\Foundation\Application|string|UrlGenerator|Application
+    public static function url(string $path, ?array $parameters = []): \Illuminate\Foundation\Application | string | UrlGenerator | Application
     {
-        return url($path,$parameters,secure: config('vanadi.app_scheme','https') ==='https');
+        return url($path, $parameters, secure: config('vanadi.app_scheme', 'https') === 'https');
     }
+
     public function abbreviateClassName(string $class): string
     {
         $class = Str::of($class)->explode('\\')->last();
         $prefix = Str::of($class)->replace('Model', '')->snake()->upper();
+
         // pick only the first letter of each word
         return Str::of($prefix)->explode('_')->map(fn ($word) => Str::of($word)->substr(0, 1))->implode('');
     }
+
     public static function get_models($scanPath, string $namespace = 'App\\'): Collection
     {
         $models = collect(File::allFiles($scanPath))
@@ -60,7 +62,7 @@ class Framework
         return isset($model->doc_status);
     }
 
-    public static function human_readable(float | int $number, int $decimals = 2, string $locale = null): string
+    public static function human_readable(float | int $number, int $decimals = 2, ?string $locale = null): string
     {
         if (! $locale) {
             $locale = app()->getLocale();
@@ -96,7 +98,7 @@ class Framework
         return $replacement;
     }
 
-    public function getByCode(Model | string $model, string|array $code)
+    public function getByCode(Model | string $model, string | array $code)
     {
         if (! Schema::hasColumn($model::query()->getModel()->getTable(), 'code')) {
             return null;
@@ -104,41 +106,54 @@ class Framework
         if (is_array($code)) {
             return $model::query()->whereIn('code', $code)->get();
         }
+
         return $model::query()->where('code', '=', trim($code))->first();
     }
 
     public function strToBool(mixed $string): bool
     {
-        return in_array(strtolower(
-            (string) $string),
-            ['y', 't', '1', 'yes', 'true', 'on','active','activated', 'enabled']
+        return in_array(
+            strtolower(
+                (string) $string
+            ),
+            ['y', 't', '1', 'yes', 'true', 'on', 'active', 'activated', 'enabled']
         );
     }
 
-    public function tailwind_palette(string|array $color): array
+    public function tailwind_palette(string | array $color): array
     {
-        if (is_array($color)) return $color; // Already a palette
-        return Str::of($color)->contains('#') ?Color::hex($color) : Color::rgb($color);
+        if (is_array($color)) {
+            return $color;
+        } // Already a palette
+
+        return Str::of($color)->contains('#') ? Color::hex($color) : Color::rgb($color);
     }
 
-    public function rgba_primary($level=500, $alpha=1.0): string
+    public function rgba_primary($level = 500, $alpha = 1.0): string
     {
         $primary = $this->tailwind_palette(StrathmoreTheme::PRIMARY_COLOR)[$level];
+
         return "rgba($primary,$alpha)";
     }
-    public function rgba_info($level=500, $alpha=1.0): string
+
+    public function rgba_info($level = 500, $alpha = 1.0): string
     {
         $color = $this->tailwind_palette(StrathmoreTheme::INFO_COLOR)[$level];
+
         return "rgba($color,$alpha)";
     }
-    public function rgba_danger($level=500, $alpha=1.0): string
+
+    public function rgba_danger($level = 500, $alpha = 1.0): string
     {
         $color = $this->tailwind_palette(StrathmoreTheme::DANGER_COLOR)[$level];
+
         return "rgba($color,$alpha)";
     }
-    public function rgba_success($level=500, $alpha=1.0): string
+
+    public function rgba_success($level = 500, $alpha = 1.0): string
     {
         $color = $this->tailwind_palette(StrathmoreTheme::SUCCESS_COLOR)[$level];
+
         return "rgba($color,$alpha)";
     }
 
@@ -152,7 +167,7 @@ class Framework
         $contents = file_get_contents($file);
         $contents = Str::of($contents)->replace($search, $replace)->toString();
         file_put_contents($file, $contents);
+
         return $contents;
     }
-
 }

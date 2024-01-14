@@ -10,7 +10,10 @@ Route::get('/login', function () {
 })->name('login');
 Route::middleware('web')->get('countries/{code}/flag', function (Request $request, string $code) {
     $country = Country::whereCode(strtoupper($code))->first();
-    if (!$country) return null;
+    if (! $country) {
+        return null;
+    }
     $contents = file_get_contents($country->flag_svg_path);
+
     return response($contents)->header('Content-Type', 'image/svg+xml');
 })->name('countries.code.flag');

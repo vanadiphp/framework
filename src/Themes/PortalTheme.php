@@ -11,11 +11,17 @@ use Filament\Support\Facades\FilamentAsset;
 class PortalTheme implements Plugin
 {
     const PRIMARY_COLOR = '#02338D';
+
     const INFO_COLOR = '#CC9C4A';
+
     const GRAY_COLOR = Color::Gray;
+
     const DANGER_COLOR = Color::Rose;
+
     const SUCCESS_COLOR = Color::Green;
+
     const WARNING_COLOR = Color::Amber;
+
     public function getId(): string
     {
         return 'portal-theme';
@@ -37,8 +43,7 @@ class PortalTheme implements Plugin
                 'success' => static::SUCCESS_COLOR,
             ])
             ->theme($this->getId())
-            ->maxContentWidth('screen-2xl')
-        ;
+            ->maxContentWidth('screen-2xl');
     }
 
     public function boot(Panel $panel): void

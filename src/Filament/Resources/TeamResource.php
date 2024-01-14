@@ -2,29 +2,26 @@
 
 namespace Vanadi\Framework\Filament\Resources;
 
-use Coolsam\FilamentExcel\Actions\ImportField;
-use Psy\Util\Str;
-use Vanadi\Framework\Concerns\Filament\HasVanadiImports;
-use Vanadi\Framework\FrameworkPlugin;
-use Vanadi\Framework\Filament\Resources\TeamResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Vanadi\Framework\Custom\Filament\Columns\ActiveStatusColumn;
+use Vanadi\Framework\FrameworkPlugin;
 use Vanadi\Framework\Models\Team;
-use function Vanadi\Framework\framework;
 
 class TeamResource extends Resource
 {
     protected static ?string $model = Team::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
+
     public static function getNavigationGroup(): ?string
     {
         return FrameworkPlugin::getNavigationGroupLabel();
@@ -51,7 +48,6 @@ class TeamResource extends Resource
 
                     Forms\Components\TextInput::make('deferred_income_account_number'),
                     Forms\Components\TextInput::make('deferred_income_object_code'),
-
 
                 ]),
                 Forms\Components\Toggle::make('is_active')

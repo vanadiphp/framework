@@ -3,7 +3,7 @@
 // translations for Vanadi/Vanadi
 return [
     'tenancy' => [
-        'select_team' => 'Select the Tenant to Login to.'
+        'select_team' => 'Select the Tenant to Login to.',
     ],
     'armor' => [
         'field' => [

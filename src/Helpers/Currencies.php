@@ -4,8 +4,8 @@ namespace Vanadi\Framework\Helpers;
 
 use Auth;
 use Vanadi\Framework\Models\Currency;
+
 use function Vanadi\Framework\default_team;
-use function Vanadi\Framework\framework;
 use function Vanadi\Framework\system_user;
 
 class Currencies
@@ -17,16 +17,18 @@ class Currencies
         try {
             $response = \Http::get(config('vanadi-framework.currency.exchange_rate_endpoint'), [
                 'source' => $base,
-                'access_key' => config('vanadi-framework.currency.exchange_rates_api_key')
+                'access_key' => config('vanadi-framework.currency.exchange_rates_api_key'),
             ])->throw()->collect();
-            if (!$response->get('success')) {
+            if (! $response->get('success')) {
                 throw new \Exception(json_encode($response->get('error')));
             }
             $res = $response->get('quotes') ?: collect([]);
             \Log::info($res);
+
             return $res;
         } catch (\Exception $e) {
-            \Log::error("Error: ". $e->getMessage());
+            \Log::error('Error: ' . $e->getMessage());
+
             return [];
         }
 
@@ -37,16 +39,16 @@ class Currencies
         $success = 0;
         $failed = 0;
         $rates = collect($this->exchangeRates($base));
-        if (!$rates->count()) {
+        if (! $rates->count()) {
             return ['success' => $success, 'failed' => $failed];
         }
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             // Login System user
             Auth::login(system_user());
         }
         // Update the base currency: KES
         $currency = Currency::query()->where('code', '=', $base)->first();
-        if (!$currency) {
+        if (! $currency) {
             Currency::query()->create([
                 'code' => $base,
                 'symbol' => $base,
@@ -54,7 +56,7 @@ class Currencies
                 'team_id' => default_team()?->id,
                 'last_forex_update' => now(),
                 'exchange_rate' => 1.0,
-                'exchange_base_currency' => $base
+                'exchange_base_currency' => $base,
             ]);
         } else {
             $currency->update([
@@ -68,7 +70,7 @@ class Currencies
                 // Remove prefix KES from the $code variable
                 $code = \Str::replaceFirst($base, '', $code);
                 $currency = Currency::query()->where('code', '=', $code)->first();
-                if (!$currency) {
+                if (! $currency) {
                     Currency::query()->create([
                         'code' => $code,
                         'symbol' => $code,
@@ -94,15 +96,18 @@ class Currencies
         if (Auth::user()?->user_type_code === 'SYSTEM') {
             Auth::logout();
         }
+
         return ['success' => $success, 'failed' => $failed];
     }
-    public function convert(string $to, $from='KES'): float
+
+    public function convert(string $to, $from = 'KES'): float
     {
-        $c1 = Currency::query()->where('code','=', $from)->first();
-        $c2 = Currency::query()->where('code','=', $to)->first();
-        if (!$c1 || !$c2) {
+        $c1 = Currency::query()->where('code', '=', $from)->first();
+        $c2 = Currency::query()->where('code', '=', $to)->first();
+        if (! $c1 || ! $c2) {
             return 1.0;
         }
+
         return floatval($c2->exchange_rate / ($c1->exchange_rate ?: 1.0));
     }
 }

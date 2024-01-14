@@ -13,7 +13,6 @@ class Ws
 
     /**
      * @deprecated use Ws::settings() instead.
-     * @return WebserviceSettings
      */
     public static function webservice_settings(): WebserviceSettings
     {

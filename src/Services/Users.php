@@ -26,17 +26,17 @@ class Users
         $user = \App\Models\User::whereUsername($username)->first();
 
         if ($user) {
-            \Log::info("User exists. Setting GUID");
-            if ($provider ==='staff') {
-                $staff = Staff::query()->where('samaccountname','=', $user->username)->first();
+            \Log::info('User exists. Setting GUID');
+            if ($provider === 'staff') {
+                $staff = Staff::query()->where('samaccountname', '=', $user->username)->first();
                 if ($staff) {
-                    \Log::info("AD User found. Updating");
+                    \Log::info('AD User found. Updating');
                     $user->update(['guid' => $staff->getConvertedGuid()]);
                 }
             } else {
-                $student = Student::query()->where('samaccountname','=', $user->username)->first();
+                $student = Student::query()->where('samaccountname', '=', $user->username)->first();
                 if ($student) {
-                    \Log::info("AD Student User found. Updating");
+                    \Log::info('AD Student User found. Updating');
                     $user->update(['guid' => $student->getConvertedGuid()]);
                 }
             }

@@ -4,8 +4,9 @@ namespace Vanadi\Framework\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Vanadi\Framework\Seeders\Framework\TeamTableSeeder;
 use Throwable;
+use Vanadi\Framework\Seeders\Framework\TeamTableSeeder;
+
 use function Vanadi\Framework\default_team;
 
 class SystemUserSeeder extends Seeder

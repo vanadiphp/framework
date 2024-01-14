@@ -2,8 +2,8 @@
 
 namespace Vanadi\Framework\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Vanadi\Framework\Helpers\Access;
 
 class AccessDatabaseSeeder extends Seeder

@@ -54,8 +54,8 @@ class VanadiServiceProvider extends ServiceProvider
             FrameworkColumns::teamColumn($this);
         });
 
-        Blueprint::macro('teamCodeColumn', function (bool $createCodeColumn=false, bool $createTeamColumn=false) {
-            FrameworkColumns::teamCodeColumn($this,$createCodeColumn, $createTeamColumn);
+        Blueprint::macro('teamCodeColumn', function (bool $createCodeColumn = false, bool $createTeamColumn = false) {
+            FrameworkColumns::teamCodeColumn($this, $createCodeColumn, $createTeamColumn);
         });
 
         Blueprint::macro('dropTeamColumn', function () {
@@ -63,7 +63,7 @@ class VanadiServiceProvider extends ServiceProvider
         });
 
         Blueprint::macro('codeColumn', function () {
-            $this->string('code',48);
+            $this->string('code', 48);
         });
 
         Blueprint::macro('dropCodeColumn', function () {

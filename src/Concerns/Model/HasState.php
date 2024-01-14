@@ -12,8 +12,9 @@ use Vanadi\Framework\Models\DocumentCancellation;
 
 /**
  * Trait HasState
- * @package Vanadi\Framework\Concerns\Model
+ *
  * @mixin Model
+ *
  * @property string $state
  * @property bool $is_active
  * @property Carbon $submitted_at
@@ -26,19 +27,19 @@ trait HasState
         static::addGlobalScope('not-cancelled', function (Builder $builder) {
             $builder->where('state', '!=', State::CANCELLED);
         });
-        static::creating(callback: function (Model|self $model) {
-            if (!$model->getAttribute('state')) {
+        static::creating(callback: function (Model | self $model) {
+            if (! $model->getAttribute('state')) {
                 $model->state = State::DRAFT;
             }
         });
-        static::updating(function (Model|self $model) {
-            if (!$model->isDraft()) {
+        static::updating(function (Model | self $model) {
+            if (! $model->isDraft()) {
                 throw new RuntimeException('You can only update documents which are in draft mode.');
             }
         });
 
-        static::deleting(function (Model|self $model) {
-            if (!$model->isDraft()) {
+        static::deleting(function (Model | self $model) {
+            if (! $model->isDraft()) {
                 throw new RuntimeException('You can only delete documents which are in draft mode.');
             }
         });
@@ -92,12 +93,12 @@ trait HasState
 
     public function isNotCancelled(): bool
     {
-        return !$this->isCancelled();
+        return ! $this->isCancelled();
     }
 
     public function submit($onlyIfDraft = true): static
     {
-        if ($onlyIfDraft && !$this->isDraft()) {
+        if ($onlyIfDraft && ! $this->isDraft()) {
             return $this;
         }
         abort_unless($this->isDraft(), 403, 'Only Draft Documents can be Submitted.');

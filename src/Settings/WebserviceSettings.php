@@ -43,11 +43,11 @@ class WebserviceSettings extends Settings
     {
         return $this->makeUrl($this->staff_by_username_endpoint, ['username' => trim($username)]);
     }
+
     public function getStaffByNumberUrl(string $staff_number): string
     {
         return $this->makeUrl($this->staff_endpoint, ['staff_number' => trim($staff_number)]);
     }
-
 
     public function getStudentUrl($studentNumber): string
     {
