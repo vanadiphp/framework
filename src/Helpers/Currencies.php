@@ -17,6 +17,7 @@ class Currencies
         try {
             $response = \Http::get(config('vanadi-framework.currency.exchange_rate_endpoint'), [
                 'source' => $base,
+                'base' => $base,
                 'access_key' => config('vanadi-framework.currency.exchange_rates_api_key'),
             ])->throw()->collect();
             if (! $response->get('success')) {
