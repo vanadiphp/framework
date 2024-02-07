@@ -54,6 +54,7 @@ class FrameworkServiceProvider extends PackageServiceProvider
             'vanadi-auth',
             'vanadi-ldap',
             'vanadi-shield',
+            'vanadi-framework',
             'vanadi-permission',
         ]);
 
