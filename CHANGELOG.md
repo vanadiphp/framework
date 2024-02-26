@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.0.4 - 2024-02-26
+
+### What's Changed
+
+* Use base_path in the country flag route by @coolsam726 in https://github.com/vanadiphp/framework/pull/3
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.0.3...v1.0.4
+
 ## v1.0.3 - 2024-02-26
 
 ### What's Changed
