@@ -28,7 +28,7 @@ class CountriesSeeder extends Seeder
                 }
                 $this->command->comment("Seeding $code");
                 $flagPath = $country->get('flag.svg_path');
-               $flag = Str::substr($flagPath,  Str::position($country->get('flag.svg_path'), '/vendor/'));
+                $flag = Str::substr($flagPath, Str::position($country->get('flag.svg_path'), '/vendor/'));
                 Country::query()->firstOrCreate(['code' => $code, 'team_id' => default_team()->id], [
                     'cca2' => $country->get('cca2'),
                     'cca3' => $country->get('cca3'),
