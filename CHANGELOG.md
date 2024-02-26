@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.0.3 - 2024-02-26
+
+### What's Changed
+
+* Dev - Use relative paths for flag svgs by @coolsam726 in https://github.com/vanadiphp/framework/pull/2
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2024-02-07
 
 ### What's Changed
