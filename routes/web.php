@@ -13,7 +13,7 @@ Route::middleware('web')->get('countries/{code}/flag', function (Request $reques
     if (! $country) {
         return null;
     }
-    $contents = file_get_contents($country->flag_svg_path);
+    $contents = file_get_contents(base_path($country->flag_svg_path));
 
     return response($contents)->header('Content-Type', 'image/svg+xml');
 })->name('countries.code.flag');
