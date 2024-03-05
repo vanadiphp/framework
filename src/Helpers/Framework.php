@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use LaravelReady\ReadableNumbers\Facades\ReadableNumbers;
 use ReflectionClass;
+use Vanadi\Framework\Concerns\Model\HasState;
 use Vanadi\Framework\Themes\StrathmoreTheme;
 
 class Framework
@@ -57,9 +58,24 @@ class Framework
         return $models->values();
     }
 
+    public static function classHasTrait(mixed $class, string $trait): bool
+    {
+        $traits = class_uses_recursive($class);
+
+        return in_array($trait, $traits);
+    }
+
+    /**
+     * @deprecated Use model_has_state instead
+     */
     public static function model_has_doc_status(Model $model): bool
     {
-        return isset($model->doc_status);
+        return static::model_has_state($model);
+    }
+
+    public static function model_has_state(Model $model): bool
+    {
+        return static::classHasTrait($model, HasState::class);
     }
 
     public static function human_readable(float | int $number, int $decimals = 2, ?string $locale = null): string
