@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.1.0 - 2024-03-05
+
+### What's Changed
+
+* Bug Fixes: Standard Policy checking if a model has State: by @coolsam726 in https://github.com/vanadiphp/framework/pull/5
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.0.4...v1.1.0
+
 ## v1.0.4 - 2024-02-26
 
 ### What's Changed
