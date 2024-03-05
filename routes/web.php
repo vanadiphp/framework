@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Vanadi\Framework\Helpers\Framework;
 use Vanadi\Framework\Models\Country;
 
-Route::get('/login', function () {
-    return redirect(Framework::url('/portal/login'));
-})->name('login');
 Route::middleware('web')->get('countries/{code}/flag', function (Request $request, string $code) {
     $country = Country::whereCode(strtoupper($code))->first();
     if (! $country) {
