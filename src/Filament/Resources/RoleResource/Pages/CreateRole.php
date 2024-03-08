@@ -2,12 +2,12 @@
 
 namespace Vanadi\Framework\Filament\Resources\RoleResource\Pages;
 
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Vanadi\Framework\Filament\Resources\RoleResource;
-use BezhanSalleh\FilamentShield\Support\Utils;
 
 class CreateRole extends CreateRecord
 {
