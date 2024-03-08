@@ -76,11 +76,13 @@ class Login extends BaseLogin
         Config::set('auth.guards.web.provider', $provider);
         $userProvider = \Auth::createUserProvider($provider);
         \Auth::setProvider($userProvider);
-        try  {
+
+        try {
             $res = Users::make()->ldapMasquerade($username = $user->username);
             if ($res) {
-                \Log::info('Masquerade as '.$username." successful.");
+                \Log::info('Masquerade as ' . $username . ' successful.');
                 session()->regenerate();
+
                 return app(LoginResponse::class);
             }
         } catch (\Throwable $e) {

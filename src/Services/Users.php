@@ -121,25 +121,26 @@ class Users
 
         return $user;
     }
+
     public static function ldapMasqueradable(): bool
     {
-        return config('app.env') ==='local' && config('app.debug') && config('vanadi.ldap_masquerade', false);
+        return config('app.env') === 'local' && config('app.debug') && config('vanadi.ldap_masquerade', false);
     }
 
-    public function ldapMasquerade($username, string $credential_type = 'username'): bool|User|\Vanadi\Framework\Models\User
+    public function ldapMasquerade($username, string $credential_type = 'username'): bool | User | \Vanadi\Framework\Models\User
     {
-        if (!static::ldapMasqueradable()) {
+        if (! static::ldapMasqueradable()) {
             return false;
         }
         if ($credential_type !== 'username') {
             $credential_type = 'email';
         }
         $user = User::where($credential_type, $username)->first();
-        if (!$user) {
+        if (! $user) {
             abort(401, 'User not found');
         }
-        if (!$user->is_active) {
-            abort(401, "The user is inactive");
+        if (! $user->is_active) {
+            abort(401, 'The user is inactive');
         }
         \Auth::login($user);
 
