@@ -32,8 +32,8 @@ trait HasTeam
 
         // Add scope
         if (auth()->check()) {
-            static::addGlobalScope('team', function (Builder $query) {
-                $this->makeTeamScope($query);
+            static::addGlobalScope('team', function (Builder $query) use ($model) {
+                $model->makeTeamScope($query);
             });
         }
     }
