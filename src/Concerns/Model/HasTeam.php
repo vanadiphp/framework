@@ -40,7 +40,7 @@ trait HasTeam
 
     public function makeTeamScope(Builder $query): void
     {
-        if (!config('vanadi.multitenancy', false)) {
+        if (! config('vanadi.multitenancy', false)) {
             return;
         }
         if (in_array($query->getModel()->getMorphClass(), static::getSharedModels())) {

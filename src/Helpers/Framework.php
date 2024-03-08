@@ -61,13 +61,12 @@ class Framework
     public static function classHasTrait(mixed $class, string $trait): bool
     {
         $traits = class_uses_recursive($class);
+
         return in_array($trait, $traits);
     }
 
     /**
      * @deprecated Use model_has_state instead
-     * @param Model $model
-     * @return bool
      */
     public static function model_has_doc_status(Model $model): bool
     {
@@ -78,6 +77,7 @@ class Framework
     {
         return static::classHasTrait($model, HasState::class);
     }
+
     public static function human_readable(float | int $number, int $decimals = 2, ?string $locale = null): string
     {
         if (! $locale) {

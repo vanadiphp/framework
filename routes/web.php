@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Vanadi\Framework\Helpers\Framework;
 use Vanadi\Framework\Models\Country;
 
 Route::middleware('web')->get('countries/{code}/flag', function (Request $request, string $code) {
