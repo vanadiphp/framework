@@ -2,13 +2,13 @@
 
 namespace Vanadi\Framework\Filament\Resources\RoleResource\Pages;
 
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Vanadi\Framework\Filament\Resources\RoleResource;
-use Vanadi\Framework\Support\Utils;
 
 class EditRole extends EditRecord
 {
