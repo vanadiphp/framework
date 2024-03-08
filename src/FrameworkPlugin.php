@@ -60,10 +60,12 @@ class FrameworkPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        FilamentView::registerRenderHook(
-            'panels::user-menu.before',
-            fn () => view('vanadi-framework::team-switcher')
-        );
+        if (config('vanadi.multitenancy', false)) {
+            FilamentView::registerRenderHook(
+                'panels::user-menu.before',
+                fn () => view('vanadi-framework::team-switcher')
+            );
+        }
     }
 
     public static function make(): static

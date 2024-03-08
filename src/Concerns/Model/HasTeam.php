@@ -32,13 +32,13 @@ trait HasTeam
 
         // Add scope
         if (auth()->check()) {
-            static::addGlobalScope('team', function (Builder $query) use ($model) {
-                $model->makeTeamScope($query);
+            static::addGlobalScope('team', function (Builder $query) {
+                static::makeTeamScope($query);
             });
         }
     }
 
-    public function makeTeamScope(Builder $query): void
+    public static function makeTeamScope(Builder $query): void
     {
         if (! config('vanadi.multitenancy', false)) {
             return;
