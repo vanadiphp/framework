@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.1.4 - 2024-03-08
+
+### What's Changed
+
+* Added Ability to masquerade using LDAP by @coolsam726 in https://github.com/vanadiphp/framework/pull/9
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.1.3...v1.1.4
+
 ## v1.1.3 - 2024-03-08
 
 ### What's Changed
