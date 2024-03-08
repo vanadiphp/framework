@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Vanadi\Framework\Filament\Resources\RoleResource;
-use Vanadi\Framework\Support\Utils;
+use BezhanSalleh\FilamentShield\Support\Utils;
 
 class CreateRole extends CreateRecord
 {
