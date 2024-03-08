@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.1.3 - 2024-03-08
+
+### What's Changed
+
+* Multi-Tenancy Bug Fix and Enhancements: by @coolsam726 in https://github.com/vanadiphp/framework/pull/8
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.1.2...v1.1.3
+
 ## v1.1.2 - 2024-03-08
 
 ### What's Changed
