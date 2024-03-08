@@ -2,6 +2,14 @@
 
 All notable changes to `framework` will be documented in this file.
 
+## v1.1.5 - 2024-03-08
+
+### What's Changed
+
+* Bug Fix: Wrong reference to Utils class by @coolsam726 in https://github.com/vanadiphp/framework/pull/10
+
+**Full Changelog**: https://github.com/vanadiphp/framework/compare/v1.1.4...v1.1.5
+
 ## v1.1.4 - 2024-03-08
 
 ### What's Changed
