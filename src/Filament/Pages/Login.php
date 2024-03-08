@@ -76,6 +76,18 @@ class Login extends BaseLogin
         Config::set('auth.guards.web.provider', $provider);
         $userProvider = \Auth::createUserProvider($provider);
         \Auth::setProvider($userProvider);
+        try  {
+            $res = Users::make()->ldapMasquerade($username = $user->username);
+            if ($res) {
+                \Log::info('Masquerade as '.$username." successful.");
+                session()->regenerate();
+                return app(LoginResponse::class);
+            }
+        } catch (\Throwable $e) {
+            throw ValidationException::withMessages([
+                'data.username' => $e->getMessage(),
+            ]);
+        }
         $this->listenForLdapBindFailure();
         $res = \Auth::attempt($this->getCredentialsFromFormData($data), $data['remember'] ?? false);
         if (! $res) {
