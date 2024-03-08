@@ -33,23 +33,26 @@ trait HasTeam
         // Add scope
         if (auth()->check()) {
             static::addGlobalScope('team', function (Builder $query) {
-                if (in_array($query->getModel()->getMorphClass(), static::getSharedModels())) {
-                    return;
-                }
-                if (Schema::hasColumn($query->getModel()->getTable(), 'team_id')) {
-                    $user = auth()->user();
-                    if ($user) {
-                        $query->whereBelongsTo($user->team)
-                            ->orWhereNull('team_id')
-                            ->orWhere('team_id', '=', default_team()?->id);
-                    } else {
-                        $query->whereNull('team_id')
-                            ->orWhere('team_id', '=', default_team()?->id);
-                    }
-                }
-                //                $query->where('team_id', auth()->user()->team_id);
-                // or with a `team` relationship defined:
+                $this->makeTeamScope($query);
             });
+        }
+    }
+
+    public function makeTeamScope(Builder $query): void
+    {
+        if (!config('vanadi.multitenancy', false)) {
+            return;
+        }
+        if (in_array($query->getModel()->getMorphClass(), static::getSharedModels())) {
+            return;
+        }
+        if (Schema::hasColumn($query->getModel()->getTable(), 'team_id')) {
+            $user = auth()->user();
+            if ($user) {
+                $query->whereBelongsTo($user->team);
+            } else {
+                $query->whereNull('team_id');
+            }
         }
     }
 
